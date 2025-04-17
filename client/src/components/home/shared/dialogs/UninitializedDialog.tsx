@@ -14,7 +14,7 @@ export default function UninitializedDialog() {
     >
       <DialogContent>
         <Typography sx={{pb: 3, fontWeight: 'bold', fontSize: '22px', textAlign: 'center'}}>
-          Welcome to the 122 Queue!
+          Welcome to the 251 Queue!
         </Typography>
         <Typography sx={{textAlign: 'center'}}>
           Please log in with the owner email set in the environment file to proceed.
