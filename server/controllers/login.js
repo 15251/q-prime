@@ -15,6 +15,11 @@ const client = new OAuth2Client(
 
 exports.post_login = async (req, res) => {
     const { codeResponse } = req.body;
+
+    if (codeResponse == null) {
+        return res.status(400).json({ error: "Missing authorization code" });
+    }
+
     const code = codeResponse.code;
 
     if (code == null) {
