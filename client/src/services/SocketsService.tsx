@@ -91,17 +91,11 @@ export const ensureSocketConnected = () => {
   if (!socket) {
     console.log('No existing socket, initiating');
     initiateSocket();
+    return;
   }
 
-  if (!socket.connected || !socket.active) {
+  if (!socket.connected && !socket.active) {
     console.log('Existing socket not connected or inactive, reconnecting');
-    socket.close();
-    socket.removeAllListeners();
     socket.connect();
-
-    // re-subscribe to all previous events (don't call socketSubscribeTo to avoid infinite loop)
-    Object.keys(subscriptions).forEach((emission) => {
-      socket.on(emission, subscriptions[emission]);
-    });
   }
 };
