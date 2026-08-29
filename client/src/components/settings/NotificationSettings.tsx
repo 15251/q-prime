@@ -9,7 +9,7 @@ import SettingsService from '../../services/SettingsService';
 import {UserDataContext} from '../../contexts/UserDataContext';
 
 export default function NotificationSettings(props) {
-  const {userData} = useContext(UserDataContext);
+  const {userData, setUserData} = useContext(UserDataContext);
 
   const [joinNotifsEnabled, setJoinNotifsEnabled] = useState(false);
   const [remindNotifsEnabled, setRemindNotifsEnabled] = useState(false);
@@ -26,6 +26,16 @@ export default function NotificationSettings(props) {
       joinEnabled: joinEnabled,
       remindEnabled: remindEnabled,
       remindTime: time,
+    }).then(() => {
+      setUserData((prev) => ({
+        ...prev,
+        taSettings: {
+          ...prev.taSettings,
+          joinNotifsEnabled: joinEnabled,
+          remindNotifsEnabled: remindEnabled,
+          remindTime: time,
+        },
+      }));
     });
   };
 
