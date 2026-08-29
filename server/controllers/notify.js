@@ -44,6 +44,10 @@ exports.init = function () {
       for (let i = 0; i < activeQuestions.length; i++) {
         let current = activeQuestions[i];
         let helpingTa = activeTAs.find(ta => ta.user_id === current.taID)
+        if (!helpingTa?.settings) {
+          continue;
+        }
+
         let minutesDiff = moment.tz(new Date(), "America/New_York").diff(moment(current.helpTime), "minutes")
 
         // only send once
