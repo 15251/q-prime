@@ -64,18 +64,16 @@ export const initiateSocket = () => {
   });
 };
 
-// use subscriptions when reconnecting to listen for all previous events
-const subscriptions = {};
-
 export const socketSubscribeTo = (emission, callback) => {
   if (!socket) {
     initiateSocket();
   }
 
-  socket.on(emission, (data) => {
-    callback(data);
-  });
+  if (subscriptions[emission]) {
+    socket.off(emission, subscriptions[emission]);
+  }
 
+  socket.on(emission, callback);
   subscriptions[emission] = callback;
 };
 
