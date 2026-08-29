@@ -8,6 +8,19 @@ const SOCKET_URL =
   process.env.REACT_APP_PROTOCOL + '://' + process.env.REACT_APP_DOMAIN;
 const SOCKET_PATH = process.env.REACT_APP_SOCKET_PATH;
 
+const subscriptions: Record<string, (data: any) => void> = {};
+
+const authenticateSocket = () => {
+  if (!socket) {
+    return;
+  }
+
+  const userCookies = cookies.get('user');
+  if (userCookies?.access_token) {
+    socket.emit('authenticate', userCookies.access_token);
+  }
+};
+
 export const initiateSocket = () => {
   if (socket) {
     return;
@@ -22,12 +35,9 @@ export const initiateSocket = () => {
     withCredentials: true,
   });
 
-  const userCookies = cookies.get('user');
-  if (userCookies != null) {
-    socket.emit('authenticate', userCookies.access_token);
-  }
-
   socket.on('connect', () => {
+    authenticateSocket();
+
     const transport = socket.io.engine.transport.name; // in most cases, "polling"
 
     console.log('Connected with transport:', transport);
