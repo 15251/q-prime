@@ -12,6 +12,7 @@ import { StudentStatusValues } from '../../../services/StudentStatus';
 import { UserDataContext } from '../../../contexts/UserDataContext';
 import { AllStudentsContext } from '../../../contexts/AllStudentsContext';
 import { socketSubscribeTo } from '../../../services/SocketsService';
+import { showNotification } from '../../../services/NotificationService';
 import { QueueDataContext } from '../../../contexts/QueueDataContext';
 
 export default function StudentEntries(props) {
@@ -124,7 +125,7 @@ export default function StudentEntries(props) {
   useEffect(() => {
     socketSubscribeTo('add', (res) => {
       if (userData.taSettings?.joinNotifsEnabled) {
-        new Notification('New Queue Entry', {
+        showNotification('New Queue Entry', {
           body:
             'Name: ' +
             res.studentData.name +

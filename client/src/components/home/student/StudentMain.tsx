@@ -10,6 +10,7 @@ import AskQuestion from '../shared/AskQuestion';
 import HomeService from '../../../services/HomeService';
 import { StudentStatusValues } from '../../../services/StudentStatus';
 import { socketSubscribeTo } from '../../../services/SocketsService';
+import { showNotification } from '../../../services/NotificationService';
 import { UserDataContext } from '../../../contexts/UserDataContext';
 import { QueueDataContext } from '../../../contexts/QueueDataContext';
 import { StudentDataContext } from '../../../contexts/StudentDataContext';
@@ -25,7 +26,7 @@ function StudentMain() {
   useEffect(() => {
     socketSubscribeTo('help', (res) => {
       if (res.andrewID === userData.andrewID) {
-        new Notification('It\'s your turn to get help!', {
+        showNotification('It\'s your turn to get help!', {
           body: `${res.data.taData.taName} is ready to help you.`,
           requireInteraction: true,
         });
@@ -36,7 +37,7 @@ function StudentMain() {
 
     socketSubscribeTo('updateQRequest', (res) => {
       if (res.andrewID === userData.andrewID) {
-        new Notification('Please update your question', {
+        showNotification('Please update your question', {
           requireInteraction: true,
         });
       } else {
@@ -48,7 +49,7 @@ function StudentMain() {
       if (res.andrewID === userData.andrewID) {
         setMessagingTAName(res.data.taName);
 
-        new Notification('You\'ve been messaged by a TA', {
+        showNotification('You\'ve been messaged by a TA', {
           requireInteraction: true,
         });
       } else {
@@ -58,7 +59,7 @@ function StudentMain() {
 
     socketSubscribeTo('remove', (res) => {
       if (res.andrewID === userData.andrewID) {
-        new Notification('You\'ve been removed from the queue', {
+        showNotification('You\'ve been removed from the queue', {
           requireInteraction: true,
         });
       } else {
@@ -68,7 +69,7 @@ function StudentMain() {
 
     socketSubscribeTo('approveCooldown', (res) => {
       if (res.andrewID === userData.andrewID) {
-        new Notification('Your entry been approved by a TA', {
+        showNotification('Your entry been approved by a TA', {
           requireInteraction: true,
         });
       } else {

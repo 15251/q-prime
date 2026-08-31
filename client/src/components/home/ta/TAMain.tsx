@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {UserDataContext} from '../../../contexts/UserDataContext';
 import {socketSubscribeTo} from '../../../services/SocketsService';
+import {showNotification} from '../../../services/NotificationService';
 import AskQuestion from '../shared/AskQuestion';
 import StudentEntries from './StudentEntries';
 
@@ -9,14 +10,14 @@ export default function TAMain(props) {
 
   useEffect(() => {
     socketSubscribeTo(`remind/${userData.andrewID}`, (res) => {
-      new Notification('Time Alert!', {
+      showNotification('Time Alert!', {
         'body': `You've been helping for ${userData.taSettings.remindTime} minutes!`,
         'requireInteraction': false,
       });
     });
 
     socketSubscribeTo(`doneHelping/${userData.andrewID}`, (data) => {
-      new Notification('Done Helping!', {
+      showNotification('Done Helping!', {
         'body': `You helped ${data.studentAndrewId} for ${data.helpTime} minutes!`,
         'requireInteraction': false,
       });
