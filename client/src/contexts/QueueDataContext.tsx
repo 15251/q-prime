@@ -21,6 +21,18 @@ const QueueDataContext = createContext({
 });
 
 /**
+ * Sort topics alphabetically by name (case-insensitive).
+ * @param {QueueData} data Queue data to normalize
+ * @return {QueueData} Queue data with sorted topics
+ */
+const withSortedTopics = (data: QueueData): QueueData => ({
+  ...data,
+  topics: [...(data.topics ?? [])].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, {sensitivity: 'base'}),
+  ),
+});
+
+/**
  * Context provider for queue data
  * @return {React.Provider} Context provider for queue data
  */
@@ -29,7 +41,7 @@ const QueueDataContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [queueData, setQueueData] = useState<QueueData>({
+  const [queueData, setQueueDataState] = useState<QueueData>({
     title: 'Office Hours Queue',
     ownerEmail: '',
     uninitializedSem: false,
@@ -53,6 +65,15 @@ const QueueDataContextProvider = ({
 
     tas: [],
   });
+
+  const setQueueData: React.Dispatch<React.SetStateAction<QueueData>> = (
+      value,
+  ) => {
+    setQueueDataState((prev) => {
+      const next = typeof value === 'function' ? value(prev) : value;
+      return withSortedTopics(next);
+    });
+  };
 
   // Load queue data and subscribe to changes
   useEffect(() => {
