@@ -13,6 +13,10 @@ import GoogleLogin from '../common/GoogleLogin';
 import AlertOnLogout from './dialogs/AlertOnLogout';
 
 import HomeService from '../../services/HomeService';
+import {
+  getNotificationPermission,
+  requestNotificationPermission,
+} from '../../services/NotificationService';
 import {UserDataContext} from '../../contexts/UserDataContext';
 import {QueueDataContext} from '../../contexts/QueueDataContext';
 import {StudentDataContext} from '../../contexts/StudentDataContext';
@@ -101,8 +105,12 @@ export default function Navbar(props) {
     HomeService.unfreezeQueue();
   };
 
-  const defaultNotificationPermission = ('Notification' in window) ? Notification.permission : 'denied';
-  const [notificationPermission, setNotificationPermission] = useState(defaultNotificationPermission);
+  const [notificationPermission, setNotificationPermission] = useState(getNotificationPermission);
+
+  const handleEnableNotifications = async () => {
+    const permission = await requestNotificationPermission();
+    setNotificationPermission(permission);
+  };
 
   const unfreezeButton = <Button color="secondary" variant="contained" sx={{mx: 2}} onClick={unfreezeQueue}>Unfreeze</Button>;
   const freezeButton = <Button color="secondary" variant="contained" sx={{mx: 2}} onClick={freezeQueue}>Freeze</Button>;
@@ -153,13 +161,7 @@ export default function Navbar(props) {
                 }
                 {
                   notificationPermission !== 'granted' && (
-                    <MenuItem onClick={() => {
-                      if ('Notification' in window) {
-                        Notification.requestPermission((permission) => {
-                          setNotificationPermission(permission);
-                        });
-                      }
-                    }}>
+                    <MenuItem onClick={handleEnableNotifications}>
                       <Typography variant='subtitle2' sx={{mx: 2}}>
                         Enable Notifications
                       </Typography>
@@ -215,13 +217,7 @@ export default function Navbar(props) {
           }
           {
             notificationPermission !== 'granted' && (
-              <IconButton color="secondary" onClick={() => {
-                if ('Notification' in window) {
-                  Notification.requestPermission((permission) => {
-                    setNotificationPermission(permission);
-                  });
-                }
-              }}>
+              <IconButton color="secondary" onClick={handleEnableNotifications}>
                 <NotificationsActive />
               </IconButton>
             )
