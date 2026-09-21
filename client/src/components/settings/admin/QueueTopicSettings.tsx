@@ -25,6 +25,24 @@ function createData(assignment_id, name, category, startDate, endDate) {
   return {assignment_id, name, category, startDate, endDate};
 }
 
+/**
+ * Next Wednesday at 7:00 PM (this week if still upcoming, otherwise next week).
+ * @return {DateTime} Default topic end date
+ */
+function getDefaultEndDate() {
+  let end = DateTime.now().set({
+    weekday: 3, // Wednesday
+    hour: 19,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
+  if (end <= DateTime.now()) {
+    end = end.plus({weeks: 1});
+  }
+  return end;
+}
+
 export default function QueueTopicSettings(props) {
   const {queueData} = useContext(QueueDataContext);
   const theme = useTheme();
@@ -58,7 +76,7 @@ export default function QueueTopicSettings(props) {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [startDate, setStartDate] = useState(DateTime.now());
-  const [endDate, setEndDate] = useState(DateTime.now());
+  const [endDate, setEndDate] = useState(getDefaultEndDate);
 
   const [file, setFile] = useState();
   const [fileName, setFileName] = useState('');
@@ -74,7 +92,7 @@ export default function QueueTopicSettings(props) {
     setName('');
     setCategory('');
     setStartDate(DateTime.now());
-    setEndDate(DateTime.now());
+    setEndDate(getDefaultEndDate());
   };
 
   const handleEditDialog = (row) => {
