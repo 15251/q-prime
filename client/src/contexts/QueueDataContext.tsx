@@ -21,14 +21,19 @@ const QueueDataContext = createContext({
 });
 
 /**
- * Sort topics alphabetically by name (case-insensitive).
+ * Sort topics alphabetically by name (case-insensitive), with numeric ordering
+ * for names starting with [Problem n].
  * @param {QueueData} data Queue data to normalize
  * @return {QueueData} Queue data with sorted topics
  */
 const withSortedTopics = (data: QueueData): QueueData => ({
   ...data,
   topics: [...(data.topics ?? [])].sort((a, b) =>
-    a.name.localeCompare(b.name, undefined, {sensitivity: 'base'}),
+    a.name.localeCompare(b.name, undefined, {
+      sensitivity: 'base',
+      numeric: /^\[Problem \d+\]/i.test(a.name) &&
+        /^\[Problem \d+\]/i.test(b.name),
+    }),
   ),
 });
 
