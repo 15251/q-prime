@@ -45,7 +45,7 @@ export default function Graph() {
   return (
     <div>
       <Typography variant="h5" sx={{mt: 4, ml: 10}} fontWeight='bold'>
-        Number of Questions per Day (in the last week)
+        Questions and Unique Individuals per Day (Last 7 Days)
       </Typography>
 
       <div style={{height: '40vh', width: 'auto', position: 'relative'}}>
@@ -64,7 +64,7 @@ export default function Graph() {
             maintainAspectRatio: false,
             plugins: {
               legend: {
-                display: false,
+                display: true,
               },
             },
             scales: {
@@ -79,15 +79,17 @@ export default function Graph() {
                 },
               },
               y: {
+                beginAtZero: true,
                 title: {
                   display: true,
-                  text: 'Number of Students',
+                  text: 'Count',
                   font: {
                     size: 16,
                   },
                 },
                 ticks: {
                   autoSkip: true,
+                  precision: 0,
                 },
                 grid: {
                   color: theme.palette.divider,
@@ -100,11 +102,19 @@ export default function Graph() {
             labels: numStudentsPerDayLastWeek.map((day) => dateFormatter(day.day)),
             datasets: [
               {
-                label: 'Number of Students',
+                label: 'Questions',
                 data: numStudentsPerDayLastWeek.map((day) => day.students),
                 fill: false,
                 backgroundColor: theme.palette.secondary.main,
                 borderColor: theme.palette.secondary.main,
+                borderWidth: 3,
+                tension: 0.3,
+              },
+              {
+                label: 'Unique individuals',
+                data: numStudentsPerDayLastWeek.map((day) => day.uniqueStudents),
+                backgroundColor: theme.palette.primary.main,
+                borderColor: theme.palette.primary.main,
                 borderWidth: 3,
                 tension: 0.3,
               },
@@ -114,7 +124,7 @@ export default function Graph() {
       </div>
 
       <Typography variant="h5" sx={{mt: 4, ml: 10}} fontWeight='bold'>
-        Number of Questions per Day (semester)
+        Questions and Unique Individuals per Day (Current Semester)
       </Typography>
 
       <div style={{height: '40vh', width: 'auto', position: 'relative'}}>
@@ -133,7 +143,7 @@ export default function Graph() {
             maintainAspectRatio: false,
             plugins: {
               legend: {
-                display: false,
+                display: true,
               },
             },
             scales: {
@@ -148,15 +158,17 @@ export default function Graph() {
                 },
               },
               y: {
+                beginAtZero: true,
                 title: {
                   display: true,
-                  text: 'Number of Students',
+                  text: 'Count',
                   font: {
                     size: 16,
                   },
                 },
                 ticks: {
                   autoSkip: true,
+                  precision: 0,
                 },
                 grid: {
                   color: theme.palette.divider,
@@ -169,11 +181,19 @@ export default function Graph() {
             labels: numStudentsOverall.map((day) => dateFormatter(day.day)),
             datasets: [
               {
-                label: 'Number of Students',
+                label: 'Questions',
                 data: numStudentsOverall.map((day) => day.students),
                 fill: false,
                 backgroundColor: theme.palette.secondary.main,
                 borderColor: theme.palette.secondary.main,
+                borderWidth: 3,
+                tension: 0.3,
+              },
+              {
+                label: 'Unique individuals',
+                data: numStudentsOverall.map((day) => day.uniqueStudents),
+                backgroundColor: theme.palette.primary.main,
+                borderColor: theme.palette.primary.main,
                 borderWidth: 3,
                 tension: 0.3,
               },
@@ -183,7 +203,7 @@ export default function Graph() {
       </div>
 
       <Typography variant="h5" sx={{mt: 4, ml: 10}} fontWeight='bold'>
-      Number of Questions per Day of the Week
+      Total Questions by Day of the Week (Current Semester)
       </Typography>
 
       <div style={{height: '40vh', width: 'auto', position: 'relative'}}>
@@ -219,7 +239,7 @@ export default function Graph() {
               y: {
                 title: {
                   display: true,
-                  text: 'Number of Students',
+                  text: 'Number of Questions',
                   font: {
                     size: 16,
                   },
@@ -237,7 +257,7 @@ export default function Graph() {
             labels: numStudentsPerDay.map((day) => day.day),
             datasets: [
               {
-                label: 'Number of Students',
+                label: 'Questions',
                 data: numStudentsPerDay.map((day) => day.students),
                 backgroundColor: theme.palette.secondary.main,
                 borderColor: theme.palette.secondary.main,

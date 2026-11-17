@@ -54,24 +54,24 @@ export default function AdminMetrics() {
   const studentCols = [
     {id: 'student_andrew', label: 'Andrew ID', width: 25},
     {id: 'student_name', label: 'Name', width: 25},
-    {id: 'count', label: 'Num Questions', width: 100},
-    {id: 'badCount', label: 'Num Ask to Fix', width: 100},
-    {id: 'timeHelped', label: 'Total Helping Time (min)', width: 100},
-    {id: 'average', label: 'Average Helping Time (min)', width: 100},
+    {id: 'count', label: 'Questions Answered', width: 100},
+    {id: 'badCount', label: 'Revision Requests', width: 100},
+    {id: 'timeHelped', label: 'Total Help Time (min)', width: 100},
+    {id: 'average', label: 'Average Help Time per Question (min)', width: 100},
   ];
 
   const taCols = [
     {id: 'ta_andrew', label: 'Andrew ID', width: 25},
     {id: 'ta_name', label: 'Name', width: 25},
-    {id: 'count', label: 'Num Questions Answered', width: 100},
-    {id: 'timeHelping', label: 'Total Time Helping (min)', width: 100},
-    {id: 'average', label: 'Average Time Helping (min)', width: 100},
+    {id: 'count', label: 'Questions Answered', width: 100},
+    {id: 'timeHelping', label: 'Total Help Time (min)', width: 100},
+    {id: 'average', label: 'Average Help Time per Question (min)', width: 100},
   ];
 
   return (
     <div style={{margin: 'auto', padding: '10px', width: '90%'}}>
       <Typography variant="h5" sx={{my: 4}} fontWeight='bold'>
-        Ranked Students and Ranked TAs
+        Student and TA Rankings (Current Semester)
       </Typography>
 
       <Card>
@@ -85,7 +85,7 @@ export default function AdminMetrics() {
         >
           <Stack sx={{width: '100%'}}>
             <TableContainer sx={{height: 'auto'}}>
-              <Table stickyHeader aria-label="sticky table">
+              <Table stickyHeader aria-label="Student rankings">
                 <TableHead>
                   <TableRow>
                     {studentCols.map((column) => (
@@ -131,7 +131,7 @@ export default function AdminMetrics() {
           </Stack>
           <Stack sx={{width: '100%'}}>
             <TableContainer sx={{height: 'auto'}}>
-              <Table stickyHeader aria-label="sticky table">
+              <Table stickyHeader aria-label="TA rankings">
                 <TableHead>
                   <TableRow>
                     {taCols.map((column) => (

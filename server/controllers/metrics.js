@@ -337,7 +337,8 @@ exports.get_num_students_per_day_last_week = (req, res) => {
     models.question.findAll({
         attributes: [
             [Sequelize.fn('date', Sequelize.literal(`"entry_time" AT TIME ZONE 'EST'`)), 'day'],
-            [Sequelize.fn('count', Sequelize.col('question_id')), 'count']
+            [Sequelize.fn('count', Sequelize.col('question_id')), 'count'],
+            [Sequelize.fn('count', Sequelize.fn('DISTINCT', Sequelize.col('student_id'))), 'uniqueStudents']
         ],
         where: {
             entry_time: {
@@ -355,7 +356,7 @@ exports.get_num_students_per_day_last_week = (req, res) => {
 
         for (const row of data) {
             let datecount = row.dataValues;
-            numStudentsPerDayLastWeek.push({'day': datecount.day, 'students': datecount.count});
+            numStudentsPerDayLastWeek.push({'day': datecount.day, 'students': datecount.count, 'uniqueStudents': Number(datecount.uniqueStudents)});
         }
 
         respond(req, res, "Got number of students per day last week", { numStudentsPerDayLastWeek: numStudentsPerDayLastWeek }, 200);
@@ -405,7 +406,8 @@ exports.get_num_students_overall = (req, res) => {
     models.question.findAll({
         attributes: [
             [Sequelize.fn('date', Sequelize.literal(`"entry_time" AT TIME ZONE 'EST'`)), 'day'],
-            [Sequelize.fn('count', Sequelize.col('question_id')), 'count']
+            [Sequelize.fn('count', Sequelize.col('question_id')), 'count'],
+            [Sequelize.fn('count', Sequelize.fn('DISTINCT', Sequelize.col('student_id'))), 'uniqueStudents']
         ],
         where: {
             sem_id: settings.get_admin_settings().currSem,
@@ -420,7 +422,7 @@ exports.get_num_students_overall = (req, res) => {
 
         for (const row of data) {
             let datecount = row.dataValues;
-            numStudentsOverall.push({'day': datecount.day, 'students': datecount.count});
+            numStudentsOverall.push({'day': datecount.day, 'students': datecount.count, 'uniqueStudents': Number(datecount.uniqueStudents)});
         }
 
         respond(req, res, "Got number of students overall", { numStudentsOverall: numStudentsOverall }, 200);

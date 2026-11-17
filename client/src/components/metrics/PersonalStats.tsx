@@ -12,8 +12,8 @@ const columns = [
   {id: 'andrewId', label: 'Andrew ID', width: 25},
   {id: 'name', label: 'Name', width: 25},
   {id: 'question', label: 'Question', width: 200},
-  {id: 'timeStart', label: 'Time Start', width: 100},
-  {id: 'timeEnd', label: 'Time End', width: 100},
+  {id: 'timeStart', label: 'Help Started', width: 100},
+  {id: 'timeEnd', label: 'Help Ended', width: 100},
 ];
 
 function createData(andrewId, name, timeStart, timeEnd, question) {
@@ -70,7 +70,7 @@ export default function PersonalStats() {
   return (
     <div style={{margin: 'auto', padding: '10px', width: '90%'}}>
       <Typography variant="h5" sx={{my: 4}} fontWeight='bold'>
-        Personal Statistics
+        Your Statistics (Current Semester)
       </Typography>
       <Card>
         <Stack
@@ -82,16 +82,16 @@ export default function PersonalStats() {
           sx={{m: 2}}
         >
           <Grid sx={{textAlign: 'center'}}>
-            <Typography variant='h6' fontWeight='bold'>No. of Questions Answered</Typography>
+            <Typography variant='h6' fontWeight='bold'>Questions Answered</Typography>
             <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{numQuestionsAnswered}</Typography>
           </Grid>
           <Grid sx={{textAlign: 'center'}}>
-            <Typography variant='h6' fontWeight='bold'>Avg. Time Spent Per Question (min)</Typography>
+            <Typography variant='h6' fontWeight='bold'>Average Help Time per Question (min)</Typography>
             <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{Number(averageHelpTime).toFixed(2)}</Typography>
           </Grid>
           <Stack sx={{width: '100%'}}>
             <TableContainer sx={{height: 300}}>
-              <Table stickyHeader aria-label="sticky table">
+              <Table stickyHeader aria-label="Your question help history">
                 <TableHead>
                   <TableRow>
                     {columns.map((column) => (

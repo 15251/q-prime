@@ -33,7 +33,7 @@ export default function OverallStats() {
   return (
     <div>
       <Typography variant="h5" sx={{mt: 4, ml: 10}} fontWeight='bold'>
-        Overall Statistics For Today
+        Overall Statistics (Today)
       </Typography>
       <Card
         sx={{
@@ -48,22 +48,22 @@ export default function OverallStats() {
         }}
       >
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>Number of Questions</Typography>
+          <Typography variant='h6' fontWeight='bold'>Questions Submitted</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{numQuestionsToday}</Typography>
         </Grid>
         <Divider orientation="vertical" variant="middle" flexItem />
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>Number of Bad Questions</Typography>
+          <Typography variant='h6' fontWeight='bold'>Questions Requiring Revision</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{numBadQuestions}</Typography>
         </Grid>
         <Divider orientation="vertical" variant="middle" flexItem />
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>Average Waiting Time (min)</Typography>
+          <Typography variant='h6' fontWeight='bold'>Average Wait Time (min)</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{Number(avgWaitTime).toFixed(2)}</Typography>
         </Grid>
         <Divider orientation="vertical" variant="middle" flexItem />
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>TA:Student Ratio</Typography>
+          <Typography variant='h6' fontWeight='bold'>TA-to-Student Ratio</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{taStudentRatio}</Typography>
         </Grid>
       </Card>

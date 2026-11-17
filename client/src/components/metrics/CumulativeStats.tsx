@@ -27,7 +27,7 @@ export default function CumulativeStats(props) {
   return (
     <div>
       <Typography variant="h5" sx={{mt: 4, ml: 10}} fontWeight='bold'>
-        Cumulative Staff Statistics
+        Overall Statistics (Current Semester)
       </Typography>
       <Card
         sx={{
@@ -42,13 +42,13 @@ export default function CumulativeStats(props) {
         }}
       >
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>Total No. of Questions Answered</Typography>
+          <Typography variant='h6' fontWeight='bold'>Questions Answered</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{numQuestions}</Typography>
         </Grid>
 
         <Divider orientation="vertical" variant="middle" flexItem />
         <Grid sx={{px: 4, py: 4, alignItems: 'center', textAlign: 'center'}}>
-          <Typography variant='h6' fontWeight='bold'>Average Time Spent per Question (min)</Typography>
+          <Typography variant='h6' fontWeight='bold'>Average Help Time per Question (min)</Typography>
           <Typography variant='h3' sx={{mt: 2}} fontWeight='bold'>{Number(avgTimePerQuestion).toFixed(2)}</Typography>
         </Grid>
 
